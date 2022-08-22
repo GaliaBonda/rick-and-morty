@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.response.use((res) => {
-  return res.data.results;
+  return res.data;
 });
 
 export default instance;

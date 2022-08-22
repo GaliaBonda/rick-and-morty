@@ -1,11 +1,14 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 import api from '../api/api';
-import ICharacter from '../common/interfaces/ICharacter';
+import ICharacterApi from '../common/interfaces/ICharacterApi';
+import IResponse from '../common/interfaces/IResponse';
 import { update } from '../features/characters/charactersSlice';
 
 export function* updateCharacters() {
-  const data: ICharacter[] = yield call(() => api.get('/character'));
-  yield put(update(data));
+  const data: IResponse<ICharacterApi> = yield call(() =>
+    api.get('/character')
+  );
+  yield put(update(data.results));
 }
 
 export const sagaActions = {
