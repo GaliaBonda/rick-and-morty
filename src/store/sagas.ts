@@ -3,11 +3,14 @@ import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
 import IResponse from '../common/interfaces/IResponse';
 import { update } from '../features/characters/charactersSlice';
+import { getNextPage } from '../features/next-page/nextPageSlice';
 
 function* updateCharacters() {
   const data: IResponse<ICharacterApi> = yield call(() =>
     api.get('/character')
   );
+  yield put(getNextPage(data.info.next));
+
   yield put(update(data.results));
 }
 function* watchUpdateUsers() {
