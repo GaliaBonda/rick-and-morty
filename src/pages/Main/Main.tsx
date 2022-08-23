@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import isElementInViewport from '../../common/utils/isElementInViewport';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
 
 function Main() {
-  const [contentHeight, setContentHeight] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const [bottomHit, setBottomHit] = useState(false);
+
+  const characters = useSelector((state: RootState) => state.characters);
+  const nextPage = useSelector((state: RootState) => state.nextPage);
 
   useEffect(() => {
     dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });
@@ -16,17 +19,21 @@ function Main() {
   useEffect(() => {
     const handleScroll = () => {
       if (isElementInViewport(bottomRef.current)) {
-        console.log('new characters');
+        setBottomHit((prevState) => (!prevState ? true : prevState));
+
+        console.log('new characters', nextPage);
+        // dispatch({
+        //   type: sagaActions.ADD_CHARACTERS_SAGA,
+        //   payload: nextPage,
+        // });
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    if (!bottomHit) window.addEventListener('scroll', handleScroll);
     return () => {
+      // setBottomHit(false);
       window.removeEventListener('scroll', handleScroll);
     };
-  });
-
-  const characters = useSelector((state: RootState) => state.characters);
-  const nextPage = useSelector((state: RootState) => state.nextPage);
+  }, [bottomHit, nextPage]);
 
   return (
     <div>
