@@ -1,10 +1,33 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import isElementInViewport from '../../common/utils/isElementInViewport';
 import Loader from '../../components/Loader';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
 import { history } from '../../common/utils/history';
+import Character from './components/Character';
+import styled from 'styled-components/macro';
+
+const StyledHeading = styled.h1`
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2em;
+  color: white;
+`;
+
+const StyledList = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3em;
+`;
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+`;
 
 function Main() {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -50,26 +73,21 @@ function Main() {
 
   return (
     <div>
-      <ul className='characters'>
+      <StyledHeading>Rick and Morty characters</StyledHeading>
+      <StyledList>
         {characters.map((item) => {
           return (
-            <li key={item.id} onClick={goToCharacter}>
-              <p>{item.name}</p>
-              <img src={item.image} />
-            </li>
+            <Character
+              key={item.id}
+              name={item.name}
+              id={item.id}
+              image={item.image}
+              clickHandler={goToCharacter}
+            />
           );
         })}
-      </ul>
-      <div
-        style={{
-          width: '100%',
-          height: '100px',
-          backgroundColor: 'transparent',
-        }}
-        ref={bottomRef}
-      >
-        {loaderShown && <Loader />}
-      </div>
+      </StyledList>
+      <StyledDiv ref={bottomRef}>{loaderShown && <Loader />}</StyledDiv>
     </div>
   );
 }
