@@ -35,14 +35,14 @@ function* watchAddCharacters() {
 }
 
 function* addCharacters(action: AnyAction) {
-  console.log(action);
+  // console.log(action);
 
   const data: IResponse<ICharacterApi> = yield call(() =>
     api.get(action.payload)
   );
-  console.log(action.payload);
+  // console.log(action.payload);
 
-  console.log(data);
+  // console.log(data);
 
   yield put(getNextPage(data.info.next));
 

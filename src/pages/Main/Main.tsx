@@ -18,22 +18,23 @@ function Main() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isElementInViewport(bottomRef.current)) {
-        setBottomHit((prevState) => (!prevState ? true : prevState));
+      if (isElementInViewport(bottomRef.current) && !bottomHit) {
+        setBottomHit(true);
+        // console.log('new characters', nextPage);
+        window.removeEventListener('scroll', handleScroll);
+        setBottomHit(false);
 
-        console.log('new characters', nextPage);
-        // dispatch({
-        //   type: sagaActions.ADD_CHARACTERS_SAGA,
-        //   payload: nextPage,
-        // });
+        dispatch({
+          type: sagaActions.ADD_CHARACTERS_SAGA,
+          payload: nextPage,
+        });
       }
     };
-    if (!bottomHit) window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      // setBottomHit(false);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [bottomHit, nextPage]);
+  }, [nextPage, bottomHit]);
 
   return (
     <div>
