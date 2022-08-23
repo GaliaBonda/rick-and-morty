@@ -6,6 +6,7 @@ import {
   all,
   take,
   takeLatest,
+  delay,
 } from 'redux-saga/effects';
 import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
@@ -35,17 +36,11 @@ function* watchAddCharacters() {
 }
 
 function* addCharacters(action: AnyAction) {
-  // console.log(action);
-
+  yield delay(2000);
   const data: IResponse<ICharacterApi> = yield call(() =>
     api.get(action.payload)
   );
-  // console.log(action.payload);
-
-  // console.log(data);
-
   yield put(getNextPage(data.info.next));
-
   yield put(update(data.results));
 }
 

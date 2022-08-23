@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import isElementInViewport from '../../common/utils/isElementInViewport';
+import Loader from '../../components/Loader';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
 
@@ -8,6 +9,7 @@ function Main() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const [bottomHit, setBottomHit] = useState(false);
+  const [loaderShown, setLoaderShown] = useState(false);
 
   const characters = useSelector((state: RootState) => state.characters);
   const nextPage = useSelector((state: RootState) => state.nextPage);
@@ -20,10 +22,10 @@ function Main() {
     const handleScroll = () => {
       if (isElementInViewport(bottomRef.current) && !bottomHit) {
         setBottomHit(true);
+        setLoaderShown(true);
         // console.log('new characters', nextPage);
         window.removeEventListener('scroll', handleScroll);
         setBottomHit(false);
-
         dispatch({
           type: sagaActions.ADD_CHARACTERS_SAGA,
           payload: nextPage,
@@ -35,6 +37,10 @@ function Main() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [nextPage, bottomHit]);
+
+  useEffect(() => {
+    setLoaderShown(false);
+  }, [characters.length]);
 
   return (
     <div>
@@ -49,9 +55,15 @@ function Main() {
         })}
       </ul>
       <div
-        style={{ width: '100%', height: '100px', backgroundColor: 'black' }}
+        style={{
+          width: '100%',
+          height: '100px',
+          backgroundColor: 'transparent',
+        }}
         ref={bottomRef}
-      ></div>
+      >
+        {loaderShown && <Loader />}
+      </div>
     </div>
   );
 }
