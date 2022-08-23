@@ -7,6 +7,7 @@ import { RootState } from '../../store/store';
 import { history } from '../../common/utils/history';
 import Character from './components/Character';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 
 const StyledHeading = styled.h1`
   font-size: 2em;
@@ -75,6 +76,7 @@ function Main() {
 
   return (
     <div>
+      <Link to='statistics'>Statistics</Link>
       <StyledHeading>Rick and Morty characters</StyledHeading>
       <StyledList>
         {characters.map((item) => {
