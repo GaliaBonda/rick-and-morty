@@ -10,11 +10,14 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     update: (state, action: PayloadAction<ICharacterApi[]>) => {
+      return [...action.payload];
+    },
+    add: (state, action: PayloadAction<ICharacterApi[]>) => {
       return [...state, ...action.payload];
     },
   },
 });
 
-export const { update } = charactersSlice.actions;
+export const { update, add } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

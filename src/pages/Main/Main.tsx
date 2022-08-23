@@ -4,6 +4,7 @@ import isElementInViewport from '../../common/utils/isElementInViewport';
 import Loader from '../../components/Loader';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
+import { history } from '../../common/utils/history';
 
 function Main() {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -15,7 +16,8 @@ function Main() {
   const nextPage = useSelector((state: RootState) => state.nextPage);
 
   useEffect(() => {
-    dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });
+    if (!characters.length)
+      dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });
   }, []);
 
   useEffect(() => {
@@ -42,12 +44,16 @@ function Main() {
     setLoaderShown(false);
   }, [characters.length]);
 
+  const goToCharacter = () => {
+    history.push('/characters/1');
+  };
+
   return (
     <div>
       <ul className='characters'>
         {characters.map((item) => {
           return (
-            <li key={item.id}>
+            <li key={item.id} onClick={goToCharacter}>
               <p>{item.name}</p>
               <img src={item.image} />
             </li>

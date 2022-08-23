@@ -11,7 +11,7 @@ import {
 import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
 import IResponse from '../common/interfaces/IResponse';
-import { update } from '../features/characters/charactersSlice';
+import { update, add } from '../features/characters/charactersSlice';
 import { getNextPage } from '../features/next-page/nextPageSlice';
 
 export const sagaActions = {
@@ -41,7 +41,7 @@ function* addCharacters(action: AnyAction) {
     api.get(action.payload)
   );
   yield put(getNextPage(data.info.next));
-  yield put(update(data.results));
+  yield put(add(data.results));
 }
 
 export default function* rootSaga() {
