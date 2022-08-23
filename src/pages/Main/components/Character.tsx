@@ -3,7 +3,9 @@ import styled from 'styled-components/macro';
 import ICharacter from '../../../common/interfaces/ICharacter';
 
 const StyledLi = styled.li`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   background-color: #fff;
   padding: 1.5em;
   display: flex;
@@ -13,6 +15,7 @@ const StyledLi = styled.li`
   &:hover {
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
       rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    cursor: pointer;
   }
   &:active {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
@@ -31,10 +34,11 @@ const StyledImg = styled.img`
 function Character({
   image,
   name,
+  id,
   clickHandler,
-}: ICharacter & { clickHandler: () => void }) {
+}: ICharacter & { clickHandler: (id: number) => void }) {
   return (
-    <StyledLi onClick={clickHandler}>
+    <StyledLi onClick={() => clickHandler(id)}>
       <StyledParagraph>{name}</StyledParagraph>
       <StyledImg src={image} />
     </StyledLi>

@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import charactersReducer from '../features/characters/charactersSlice';
+import characterReducer from '../features/character/characterSlice';
 import nextPageReducer from '../features/next-page/nextPageSlice';
 import saga from './sagas';
 
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     characters: charactersReducer,
     nextPage: nextPageReducer,
+    character: characterReducer,
   },
   middleware,
 });

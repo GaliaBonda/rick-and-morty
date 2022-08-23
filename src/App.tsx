@@ -51,7 +51,7 @@ function App() {
           <Route path='episodes' element={<Episodes />} />
           <Route path='location' element={<Location />} />
         </Route>
-        <Route path='characters' element={<Character />}>
+        <Route path='characters'>
           <Route path=':characterId' element={<Character />} />
         </Route>
         <Route path='/' element={<Main />} />

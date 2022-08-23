@@ -15,6 +15,8 @@ const StyledHeading = styled.h1`
   text-align: center;
   margin-bottom: 2em;
   color: white;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledList = styled.ul`
@@ -67,8 +69,8 @@ function Main() {
     setLoaderShown(false);
   }, [characters.length]);
 
-  const goToCharacter = () => {
-    history.push('/characters/1');
+  const goToCharacter = (id: number) => {
+    history.push('characters/' + id);
   };
 
   return (

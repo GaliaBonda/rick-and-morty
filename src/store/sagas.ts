@@ -12,11 +12,13 @@ import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
 import IResponse from '../common/interfaces/IResponse';
 import { update, add } from '../features/characters/charactersSlice';
+import { updateCharacter } from '../features/character/characterSlice';
 import { getNextPage } from '../features/next-page/nextPageSlice';
 
 export const sagaActions = {
   UPDATE_CHARACTERS_SAGA: 'UPDATE_CHARACTERS_SAGA',
   ADD_CHARACTERS_SAGA: 'ADD_CHARACTERS_SAGA',
+  GET_CHARACTER_SAGA: 'GET_CHARACTER_SAGA',
 };
 
 function* updateCharacters() {
@@ -31,10 +33,6 @@ function* watchUpdateCharacters() {
   yield takeEvery(sagaActions.UPDATE_CHARACTERS_SAGA, updateCharacters);
 }
 
-function* watchAddCharacters() {
-  yield takeLatest(sagaActions.ADD_CHARACTERS_SAGA, addCharacters);
-}
-
 function* addCharacters(action: AnyAction) {
   yield delay(2000);
   const data: IResponse<ICharacterApi> = yield call(() =>
@@ -44,6 +42,26 @@ function* addCharacters(action: AnyAction) {
   yield put(add(data.results));
 }
 
+function* watchAddCharacters() {
+  yield takeLatest(sagaActions.ADD_CHARACTERS_SAGA, addCharacters);
+}
+
+function* getCharacter(action: AnyAction) {
+  console.log(action);
+  const data: ICharacterApi = yield call(() =>
+    api.get('character/' + action.payload)
+  );
+  yield put(updateCharacter(data));
+}
+
+function* watchGetCharacter() {
+  yield takeLatest(sagaActions.GET_CHARACTER_SAGA, getCharacter);
+}
+
 export default function* rootSaga() {
-  yield all([watchUpdateCharacters(), watchAddCharacters()]);
+  yield all([
+    watchUpdateCharacters(),
+    watchAddCharacters(),
+    watchGetCharacter(),
+  ]);
 }
