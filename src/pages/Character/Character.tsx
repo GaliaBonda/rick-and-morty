@@ -14,7 +14,6 @@ function Character() {
   const { name, status, species, gender, image, id } = useSelector(
     (state: RootState) => state.character
   );
-  console.log(id);
 
   const dispatch = useDispatch();
   useEffect(() => {

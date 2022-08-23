@@ -47,7 +47,6 @@ function* watchAddCharacters() {
 }
 
 function* getCharacter(action: AnyAction) {
-  console.log(action);
   const data: ICharacterApi = yield call(() =>
     api.get('character/' + action.payload)
   );
