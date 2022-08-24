@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   column-gap: 2em;
   margin-top: 6em;
-  margin-bottom: 2em;
+  margin-bottom: 4em;
 `;
 
 function Statistics() {
@@ -28,7 +28,7 @@ function Statistics() {
           hiddenImage={activeTab.length > 0}
           handleClick={() =>
             setActiveTab((prevState) =>
-              prevState.length < 1 ? 'episodes' : ''
+              prevState !== 'episodes' ? 'episodes' : ''
             )
           }
           activeTab={activeTab === 'episodes'}
@@ -40,7 +40,7 @@ function Statistics() {
           hiddenImage={activeTab.length > 0}
           handleClick={() =>
             setActiveTab((prevState) =>
-              prevState.length < 1 ? 'locations' : ''
+              prevState !== 'locations' ? 'locations' : ''
             )
           }
           activeTab={activeTab === 'locations'}

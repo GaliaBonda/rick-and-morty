@@ -31,11 +31,11 @@ function Episodes() {
     setSortedRows((startRows) => {
       if (desc) {
         return [...startRows].sort((a, b) =>
-          a.data[column] <= b.data[column] ? 1 : -1
+          a.data[column] >= b.data[column] ? 1 : -1
         );
       } else {
         return [...startRows].sort((a, b) =>
-          a.data[column] >= b.data[column] ? 1 : -1
+          a.data[column] <= b.data[column] ? 1 : -1
         );
       }
     });
