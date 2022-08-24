@@ -11,12 +11,10 @@ interface Props {
 
 const StyledTable = styled.table`
   width: 100%;
-
-  
-    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   background-color: white;
   border-collapse: collapse;
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 const StyledTableHead = styled.thead`
   font-weight: 600;
