@@ -16,6 +16,7 @@ const StyledLi = styled.li`
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
       rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     cursor: pointer;
+    transform: scale(1.01);
   }
   &:active {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,

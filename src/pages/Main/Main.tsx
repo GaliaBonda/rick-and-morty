@@ -8,7 +8,12 @@ import { history } from '../../common/utils/history';
 import Character from './components/Character';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import Nav from '../../components/Nav';
 
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const StyledHeading = styled.h1`
   font-size: 2em;
   font-weight: 600;
@@ -74,9 +79,15 @@ function Main() {
     history.push('characters/' + id);
   };
 
+  const links = [
+    { link: 'statistics', title: 'Statistics' },
+    { link: 'statistics/episodes', title: 'Episodes' },
+    { link: 'statistics/locations', title: 'Locations' },
+  ];
+
   return (
-    <div>
-      <Link to='statistics'>Statistics</Link>
+    <MainDiv>
+      <Nav links={links} />
       <StyledHeading>Rick and Morty characters</StyledHeading>
       <StyledList>
         {characters.map((item) => {
@@ -92,7 +103,7 @@ function Main() {
         })}
       </StyledList>
       <StyledDiv ref={bottomRef}>{loaderShown && <Loader />}</StyledDiv>
-    </div>
+    </MainDiv>
   );
 }
 

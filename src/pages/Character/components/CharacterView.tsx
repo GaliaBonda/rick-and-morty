@@ -6,7 +6,7 @@ const FlexDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 6em);
+  margin-top: 6em;
   width: 100%;
 `;
 const StyledDiv = styled.div`
