@@ -11,8 +11,8 @@ interface Props {
 function Table({ header, rows, changeSort }: Props) {
   const [descSorted, setDescSorted] = useState(false);
   const handleClick = (index: number) => {
+    changeSort(descSorted, index);
     setDescSorted((prevState) => !prevState);
-    changeSort(!descSorted, index);
   };
   return (
     <table>
