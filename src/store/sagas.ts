@@ -58,7 +58,7 @@ function* getAllCharacters() {
     Promise.all(promises)
   );
 
-  data.map((item) => {
+  data.forEach((item) => {
     allCharacters = [...allCharacters, ...item.results];
   });
   yield put(update(allCharacters));
