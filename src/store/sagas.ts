@@ -4,10 +4,8 @@ import {
   takeEvery,
   call,
   all,
-  take,
   takeLatest,
   delay,
-  CallEffect,
 } from 'redux-saga/effects';
 import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
@@ -15,12 +13,15 @@ import IResponse from '../common/interfaces/IResponse';
 import { update, add } from '../features/characters/charactersSlice';
 import { updateCharacter } from '../features/character/characterSlice';
 import { getNextPage } from '../features/next-page/nextPageSlice';
+import ILocation from '../common/interfaces/ILocation';
+import { updateLocations } from '../features/locations/locationsSlice';
 
 export const sagaActions = {
   UPDATE_CHARACTERS_SAGA: 'UPDATE_CHARACTERS_SAGA',
   ADD_CHARACTERS_SAGA: 'ADD_CHARACTERS_SAGA',
   GET_CHARACTER_SAGA: 'GET_CHARACTER_SAGA',
   GET_ALL_CHARACTERS_SAGA: 'GET_ALL_CHARACTERS_SAGA',
+  UPDATE_LOCATIONS_SAGA: 'UPDATE_LOCATIONS_SAGA',
 };
 
 function* updateCharacters() {
@@ -91,11 +92,28 @@ function* watchGetCharacter() {
   yield takeLatest(sagaActions.GET_CHARACTER_SAGA, getCharacter);
 }
 
+function* getAllLocations() {
+  const locationsIds: number[] = [];
+  for (let i = 1; i <= 126; i++) {
+    locationsIds.push(i);
+  }
+
+  const locations: ILocation[] = yield call(() =>
+    api.get('location/' + locationsIds.toString())
+  );
+  yield put(updateLocations(locations));
+}
+
+function* watchUpdateLocations() {
+  yield takeEvery(sagaActions.UPDATE_LOCATIONS_SAGA, getAllLocations);
+}
+
 export default function* rootSaga() {
   yield all([
     watchUpdateCharacters(),
     watchAddCharacters(),
     watchGetCharacter(),
     watchGetAllCharacters(),
+    watchUpdateLocations(),
   ]);
 }

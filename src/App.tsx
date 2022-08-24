@@ -53,7 +53,7 @@ function App() {
       <Routes>
         <Route path='statistics' element={<Statistics />}>
           <Route path='episodes' element={<Episodes />} />
-          <Route path='location' element={<Location />} />
+          <Route path='locations' element={<Location />} />
         </Route>
         <Route path='characters'>
           <Route path=':characterId' element={<Character />} />
