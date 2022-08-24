@@ -5,7 +5,7 @@ import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
 
 function Episodes() {
-  const characters = useSelector((state: RootState) => state.characters);
+  const characters = useSelector((state: RootState) => state.allCharacters);
   const [sortedRows, setSortedRows] = useState([{ id: 0, data: ['', 0] }]);
 
   const dispatch = useDispatch();

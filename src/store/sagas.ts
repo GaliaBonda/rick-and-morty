@@ -15,6 +15,7 @@ import { updateCharacter } from '../features/character/characterSlice';
 import { getNextPage } from '../features/next-page/nextPageSlice';
 import ILocation from '../common/interfaces/ILocation';
 import { updateLocations } from '../features/locations/locationsSlice';
+import { getAll } from '../features/all-characters/allCharactersSlice';
 
 export const sagaActions = {
   UPDATE_CHARACTERS_SAGA: 'UPDATE_CHARACTERS_SAGA',
@@ -61,7 +62,7 @@ function* getAllCharacters() {
   data.forEach((item) => {
     allCharacters = [...allCharacters, ...item.results];
   });
-  yield put(update(allCharacters));
+  yield put(getAll(allCharacters));
 }
 
 function* watchGetAllCharacters() {
