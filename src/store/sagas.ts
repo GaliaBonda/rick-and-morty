@@ -7,6 +7,7 @@ import {
   take,
   takeLatest,
   delay,
+  CallEffect,
 } from 'redux-saga/effects';
 import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
@@ -36,17 +37,30 @@ function* watchUpdateCharacters() {
 }
 
 function* getAllCharacters() {
-  const charactersIds: number[] = [];
-  for (let i = 1; i < 827; i++) {
-    charactersIds.push(i);
-  }
-  console.log(charactersIds.toString());
+  // const charactersIds: number[] = [];
+  // for (let i = 1; i < 827; i++) {
+  //   charactersIds.push(i);
+  // }
 
-  const data: ICharacterApi[] = yield call(() =>
-    api.get('/character/' + charactersIds.toString())
+  // const data: ICharacterApi[] = yield call(
+  //   () => api.get('/character/' + charactersIds.toString())
+  // );
+
+  // yield put(update(data));
+
+  const promises = [api.get('/character/')];
+  for (let i = 2; i <= 42; i++) {
+    promises.push(api.get('/character/?page=' + i));
+  }
+  let allCharacters: ICharacterApi[] = [];
+  const data: IResponse<ICharacterApi>[] = yield call(() =>
+    Promise.all(promises)
   );
 
-  yield put(update(data));
+  data.map((item) => {
+    allCharacters = [...allCharacters, ...item.results];
+  });
+  yield put(update(allCharacters));
 }
 
 function* watchGetAllCharacters() {

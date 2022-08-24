@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import ICharacter from '../../common/interfaces/ICharacter';
 import ICharacterApi from '../../common/interfaces/ICharacterApi';
 
-const initialState: ICharacter[] = [];
+const initialState: ICharacterApi[] = [];
 
 export const charactersSlice = createSlice({
   name: 'characters',
