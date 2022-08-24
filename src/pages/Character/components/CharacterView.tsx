@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   flex-direction: column;
   gap: 0.5em;
   background-color: #fff;
-  padding: 1em 3em;
+  padding: 2em 3em;
   border-radius: 20px;
 `;
 const StyledHeading = styled.h1`
@@ -40,20 +40,24 @@ function CharacterView({
   species,
   status,
 }: ICharacterApi) {
+  const about = [
+    { title: 'Gender:', info: gender },
+    { title: 'Species:', info: species },
+    { title: 'Status:', info: status },
+  ];
+
   return (
     <FlexDiv>
       <StyledDiv>
         <StyledHeading>{name}</StyledHeading>
         <StyledImg src={image} alt=''></StyledImg>
-        <StyledParagraph>
-          <StyledSpan>Gender:</StyledSpan> {gender}
-        </StyledParagraph>
-        <StyledParagraph>
-          <StyledSpan>Species:</StyledSpan> {species}
-        </StyledParagraph>
-        <StyledParagraph>
-          <StyledSpan>Status:</StyledSpan> {status}
-        </StyledParagraph>
+        {about.map((item, index) => {
+          return (
+            <StyledParagraph>
+              <StyledSpan>{item.title}</StyledSpan> {item.info}
+            </StyledParagraph>
+          );
+        })}
       </StyledDiv>
     </FlexDiv>
   );

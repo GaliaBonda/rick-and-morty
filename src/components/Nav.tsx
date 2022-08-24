@@ -11,7 +11,6 @@ const StyledNav = styled.nav`
 const StyledLink = styled(Link)`
   display: block;
   color: white;
-  text-decoration: none;
   font-size: 1.5em;
   &:hover {
     transform: scale(1.1);

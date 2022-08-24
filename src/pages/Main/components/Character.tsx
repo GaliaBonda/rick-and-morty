@@ -7,9 +7,10 @@ const StyledLi = styled.li`
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   background-color: #fff;
-  padding: 1.5em;
+  padding: 2em;
   display: flex;
   flex-direction: column;
+  row-gap: 2em;
   border-radius: 20px;
   max-width: 25em;
   &:hover {
