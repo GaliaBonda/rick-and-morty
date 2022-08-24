@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import ICharacter from '../../common/interfaces/ICharacter';
 import ICharacterApi from '../../common/interfaces/ICharacterApi';
 
 const initialState: ICharacterApi = {

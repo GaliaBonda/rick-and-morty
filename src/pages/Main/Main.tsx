@@ -7,7 +7,6 @@ import { RootState } from '../../store/store';
 import { history } from '../../common/utils/history';
 import Character from './components/Character';
 import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
 import Nav from '../../components/Nav';
 
 const MainDiv = styled.div`
@@ -56,7 +55,6 @@ function Main() {
       if (isElementInViewport(bottomRef.current) && !bottomHit) {
         setBottomHit(true);
         setLoaderShown(true);
-        // console.log('new characters', nextPage);
         window.removeEventListener('scroll', handleScroll);
         setBottomHit(false);
         dispatch({

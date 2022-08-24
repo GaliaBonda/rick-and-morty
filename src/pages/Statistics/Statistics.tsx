@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import LinkView from '../../components/LinkView';
@@ -16,6 +16,8 @@ function Statistics() {
   const links = [{ link: '/', title: '← Back to Main' }];
   // const [openTab, setOpenTab] = useState(false);
   const [activeTab, setActiveTab] = useState('');
+
+  useEffect(() => {}, []);
 
   return (
     <>

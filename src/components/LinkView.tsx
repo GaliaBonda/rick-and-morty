@@ -2,21 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-const StyledLink = styled(Link).attrs(
-  (props: { active: boolean; border: string }) => ({
-    border: props.border,
-    active: props.active,
-  })
-)`
+interface StyleProps {
+  $active?: boolean;
+}
+const StyledLink = styled(Link).attrs((props: StyleProps) => ({
+  $active: props.$active,
+}))`
   flex: 0 1 45%;
-  color: ${(props) => (props.active ? 'black' : 'white')};
+  color: ${(props) => (props.$active ? 'black' : 'white')};
   padding: 1.5em;
   display: flex;
   flex-direction: column;
   row-gap: 3em;
   align-items: center;
   border-radius: 10px;
-  background-color: ${(props) => (props.active ? 'white' : 'inherit')};
+  background-color: ${(props) => (props.$active ? 'white' : 'inherit')};
   &:hover {
     transform: scale(1.06);
   }
@@ -53,12 +53,7 @@ function LinkView({
   activeTab,
 }: Props) {
   return (
-    <StyledLink
-      to={link}
-      onClick={handleClick}
-      border={activeTab ? '2px solid white' : 'none'}
-      active={activeTab}
-    >
+    <StyledLink to={link} onClick={handleClick} $active={activeTab}>
       <StyledHeading>{title}</StyledHeading>
       {!hiddenImage && <StyledImage src={image} />}
     </StyledLink>

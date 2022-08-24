@@ -8,6 +8,7 @@ const FlexDiv = styled.div`
   align-items: center;
   margin-top: 6em;
   width: 100%;
+  height: 100%;
 `;
 const StyledDiv = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ const StyledDiv = styled.div`
   background-color: #fff;
   padding: 2em 3em;
   border-radius: 20px;
+  flex: 0 1 30%;
 `;
 const StyledHeading = styled.h1`
   text-align: center;
@@ -53,7 +55,7 @@ function CharacterView({
         <StyledImg src={image} alt=''></StyledImg>
         {about.map((item, index) => {
           return (
-            <StyledParagraph>
+            <StyledParagraph key={index}>
               <StyledSpan>{item.title}</StyledSpan> {item.info}
             </StyledParagraph>
           );

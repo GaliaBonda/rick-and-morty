@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import CharacterView from './components/CharacterView';
-
-import { sagaActions } from '../../store/sagas';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import Nav from '../../components/Nav';
@@ -16,20 +14,12 @@ function Character() {
   const { name, status, species, gender, image, id } = characters.find(
     (item) => item.id === Number(characterId)
   ) || { name: '', status: '', species: '', gender: '', image: '', id: 0 };
-  // const { name, status, species, gender, image, id } = useSelector(
-  //   (state: RootState) => state.character
-  // );
-
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch({ type: sagaActions.GET_CHARACTER_SAGA, payload: characterId });
-  // }, []);
 
   const links = [
     { link: '/', title: 'Main' },
-    { link: 'statistics', title: 'Statistics' },
-    { link: 'statistics/episodes', title: 'Episodes' },
-    { link: 'statistics/locations', title: 'Locations' },
+    { link: '/statistics', title: 'Statistics' },
+    { link: '/statistics/episodes', title: 'Episodes' },
+    { link: '/statistics/locations', title: 'Locations' },
   ];
 
   return (
