@@ -19,6 +19,7 @@ export const sagaActions = {
   UPDATE_CHARACTERS_SAGA: 'UPDATE_CHARACTERS_SAGA',
   ADD_CHARACTERS_SAGA: 'ADD_CHARACTERS_SAGA',
   GET_CHARACTER_SAGA: 'GET_CHARACTER_SAGA',
+  GET_ALL_CHARACTERS_SAGA: 'GET_ALL_CHARACTERS_SAGA',
 };
 
 function* updateCharacters() {
@@ -29,8 +30,27 @@ function* updateCharacters() {
 
   yield put(update(data.results));
 }
+
 function* watchUpdateCharacters() {
   yield takeEvery(sagaActions.UPDATE_CHARACTERS_SAGA, updateCharacters);
+}
+
+function* getAllCharacters() {
+  const charactersIds: number[] = [];
+  for (let i = 1; i < 827; i++) {
+    charactersIds.push(i);
+  }
+  console.log(charactersIds.toString());
+
+  const data: ICharacterApi[] = yield call(() =>
+    api.get('/character/' + charactersIds.toString())
+  );
+
+  yield put(update(data));
+}
+
+function* watchGetAllCharacters() {
+  yield takeEvery(sagaActions.GET_ALL_CHARACTERS_SAGA, getAllCharacters);
 }
 
 function* addCharacters(action: AnyAction) {
@@ -62,5 +82,6 @@ export default function* rootSaga() {
     watchUpdateCharacters(),
     watchAddCharacters(),
     watchGetCharacter(),
+    watchGetAllCharacters(),
   ]);
 }

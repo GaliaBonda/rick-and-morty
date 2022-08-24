@@ -9,16 +9,13 @@ function Episodes() {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (nextPage) {
-  //     dispatch({
-  //       type: sagaActions.ADD_CHARACTERS_SAGA,
-  //       payload: nextPage,
-  //     });
-  //   }
+  useEffect(() => {
+    dispatch({
+      type: sagaActions.GET_ALL_CHARACTERS_SAGA,
+    });
 
-  //   console.log(characters);
-  // });
+    console.log(characters);
+  }, []);
 
   return <div className='episodes'>Episodes</div>;
 }
