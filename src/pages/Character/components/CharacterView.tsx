@@ -5,21 +5,28 @@ import ICharacterApi from '../../../common/interfaces/ICharacterApi';
 const FlexDiv = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-top: 6em;
   width: 100%;
   height: 100%;
 `;
 const StyledDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+  column-gap: 3em;
   background-color: #fff;
   padding: 2em 3em;
   border-radius: 20px;
-  flex: 0 1 30%;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex: 0 1 50%;
+`;
+const StyledInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 2em;
 `;
 const StyledHeading = styled.h1`
+  flex: 1 0 100%;
   text-align: center;
   margin-bottom: 1.5em;
   text-transform: uppercase;
@@ -53,13 +60,15 @@ function CharacterView({
       <StyledDiv>
         <StyledHeading>{name}</StyledHeading>
         <StyledImg src={image} alt=''></StyledImg>
-        {about.map((item, index) => {
-          return (
-            <StyledParagraph key={index}>
-              <StyledSpan>{item.title}</StyledSpan> {item.info}
-            </StyledParagraph>
-          );
-        })}
+        <StyledInfo>
+          {about.map((item, index) => {
+            return (
+              <StyledParagraph key={index}>
+                <StyledSpan>{item.title}</StyledSpan> {item.info}
+              </StyledParagraph>
+            );
+          })}
+        </StyledInfo>
       </StyledDiv>
     </FlexDiv>
   );
