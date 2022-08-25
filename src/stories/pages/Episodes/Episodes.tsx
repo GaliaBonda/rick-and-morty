@@ -3,16 +3,7 @@ import ICharacterApi from '../../../common/interfaces/ICharacterApi';
 import PageTable from '../../components/PageTable/PageTable';
 
 function Episodes({ characters }: { characters: ICharacterApi[] }) {
-  //   const characters = useSelector((state: RootState) => state.allCharacters);
   const [sortedRows, setSortedRows] = useState([{ id: 0, data: ['', 0] }]);
-
-  //   const dispatch = useDispatch();
-
-  //   useEffect(() => {
-  //     dispatch({
-  //       type: sagaActions.GET_ALL_CHARACTERS_SAGA,
-  //     });
-  //   }, []);
 
   useEffect(() => {
     const episodesRows = characters

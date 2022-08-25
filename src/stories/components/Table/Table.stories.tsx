@@ -33,3 +33,11 @@ Standart.args = {
     ['two', 'one'],
   ],
 };
+Standart.play = async ({ canvasElement, args }) => {
+  const canvas = within(canvasElement);
+  const tableHead = canvas.getAllByTestId('test-head-cell');
+  await userEvent.click(tableHead[0]);
+  await waitFor(() => expect(args.changeSort).toBeCalled());
+  await userEvent.click(tableHead[1]);
+  await waitFor(() => expect(args.changeSort).toBeCalled());
+};

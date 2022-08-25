@@ -48,14 +48,6 @@ function Main({
   const [bottomHit, setBottomHit] = useState(false);
   const [loaderShown, setLoaderShown] = useState(false);
 
-  // const characters = useSelector((state: RootState) => state.characters);
-  // const nextPage = useSelector((state: RootState) => state.nextPage);
-
-  // useEffect(() => {
-  //   if (!characters.length)
-  //     dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });
-  // }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       if (isElementInViewport(bottomRef.current) && !bottomHit) {
@@ -95,7 +87,9 @@ function Main({
           );
         })}
       </StyledList>
-      <StyledDiv ref={bottomRef}>{loaderShown && <Loader />}</StyledDiv>
+      <StyledDiv ref={bottomRef} data-testid='scroll-test-element'>
+        {loaderShown && <Loader />}
+      </StyledDiv>
     </MainDiv>
   );
 }

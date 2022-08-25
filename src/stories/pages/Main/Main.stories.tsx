@@ -1,9 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Main from './Main';
-import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { screen, userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { fireEvent } from '@testing-library/react';
 
 export default {
   title: 'Main',
@@ -47,4 +48,16 @@ Standart.args = {
       image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
     },
   ],
+};
+
+Standart.play = async ({ canvasElement, args }) => {
+  const canvas = within(canvasElement);
+  const listEl = canvas.getAllByTestId('test-list-element');
+  await userEvent.click(listEl[0]);
+  await waitFor(() => expect(args.goToCharacter).toBeCalled());
+  await fireEvent.scroll(window, { target: { scrollY: 10000000 } });
+  // await waitFor(() => expect(args.uploadNewCharacters).toBeCalled());
+  await waitFor(() =>
+    expect(canvas.findByTestId('loader')).toBeInTheDocument()
+  );
 };

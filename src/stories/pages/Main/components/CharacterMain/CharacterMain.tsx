@@ -40,7 +40,7 @@ function CharacterMain({
   clickHandler,
 }: ICharacter & { clickHandler: (id: number) => void }) {
   return (
-    <StyledLi onClick={() => clickHandler(id)}>
+    <StyledLi onClick={() => clickHandler(id)} data-testid='test-list-element'>
       <StyledParagraph>{name}</StyledParagraph>
       <StyledImg src={image} />
     </StyledLi>

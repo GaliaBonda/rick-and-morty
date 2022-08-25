@@ -3,9 +3,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Episodes from './Episodes';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from '../../../store/store';
 
 export default {
   title: 'Episodes',
