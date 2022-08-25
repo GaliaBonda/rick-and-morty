@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import TableHead from './TableHead';
-import { BrowserRouter as Router } from 'react-router-dom';
 import {
   fireEvent,
   userEvent,

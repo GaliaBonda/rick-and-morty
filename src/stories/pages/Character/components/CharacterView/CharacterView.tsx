@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import ICharacterApi from '../../../common/interfaces/ICharacterApi';
-import CharacterInfo from './CharacterInfo';
+import ICharacterApi from '../../../../../common/interfaces/ICharacterApi';
+import CharacterInfo from '../CharacterInfo/CharacterInfo';
 
 const FlexDiv = styled.div`
   display: flex;
