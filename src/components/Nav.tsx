@@ -15,6 +15,10 @@ const StyledLink = styled(Link)`
   &:hover {
     transform: scale(1.1);
   }
+  &:active,
+  &:focus {
+    box-shadow: none;
+  }
 `;
 
 interface Props {

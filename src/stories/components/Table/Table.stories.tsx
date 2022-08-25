@@ -29,13 +29,7 @@ export const Standart = Template.bind({});
 Standart.args = {
   header: ['header 1', 'header 2'],
   rows: [
-    {
-      id: 0,
-      data: ['one', 'two', 'three'],
-    },
-    {
-      id: 1,
-      data: ['three', 'two', 'one'],
-    },
+    ['one', 'two'],
+    ['two', 'one'],
   ],
 };

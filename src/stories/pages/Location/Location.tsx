@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from '../../components/Table/Table';
 import { RootState } from '../../../store/store';
 import ILocation from '../../../common/interfaces/ILocation';
+import PageTable from '../../components/PageTable/PageTable';
 
 function Location({ locations }: { locations: ILocation[] }) {
   //   const locations = useSelector((state: RootState) => state.locations);
@@ -39,7 +39,7 @@ function Location({ locations }: { locations: ILocation[] }) {
   };
 
   return (
-    <Table
+    <PageTable
       header={['Location', 'Number of characters']}
       rows={sortedRows}
       changeSort={changeSort}

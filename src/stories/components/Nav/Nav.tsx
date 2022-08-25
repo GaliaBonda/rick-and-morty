@@ -15,10 +15,14 @@ const StyledLink = styled(Link)`
   &:hover {
     transform: scale(1.1);
   }
+  &:active,
+  &:focus {
+    box-shadow: none;
+  }
 `;
 
 interface Props {
-  links: { link: string; title: string }[];
+  links: string[];
   clickHandle?: () => void;
 }
 
@@ -27,8 +31,8 @@ function Nav({ links, clickHandle }: Props) {
     <StyledNav>
       {links.map((item, index) => {
         return (
-          <StyledLink to={item.link} key={index} onClick={clickHandle}>
-            {item.title}
+          <StyledLink to='#' key={index} onClick={clickHandle}>
+            {item}
           </StyledLink>
         );
       })}

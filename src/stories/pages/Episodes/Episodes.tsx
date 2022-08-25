@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Table from '../../components/Table/Table';
 import ICharacterApi from '../../../common/interfaces/ICharacterApi';
+import PageTable from '../../components/PageTable/PageTable';
 
 function Episodes({ characters }: { characters: ICharacterApi[] }) {
   //   const characters = useSelector((state: RootState) => state.allCharacters);
@@ -40,7 +40,7 @@ function Episodes({ characters }: { characters: ICharacterApi[] }) {
   };
 
   return (
-    <Table
+    <PageTable
       header={['Character name', 'Number of episodes']}
       rows={sortedRows}
       changeSort={changeSort}

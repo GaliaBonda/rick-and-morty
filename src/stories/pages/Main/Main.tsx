@@ -76,11 +76,7 @@ function Main({
     setLoaderShown(false);
   }, [characters.length]);
 
-  const links = [
-    { link: 'statistics', title: 'Statistics' },
-    { link: 'statistics/episodes', title: 'Episodes' },
-    { link: 'statistics/locations', title: 'Locations' },
-  ];
+  const links = ['Statistics', 'Episodes', 'Locations'];
 
   return (
     <MainDiv>

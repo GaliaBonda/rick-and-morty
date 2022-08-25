@@ -30,10 +30,7 @@ const Template: ComponentStory<typeof Nav> = (args) => <Nav {...args} />;
 
 export const Standart = Template.bind({});
 Standart.args = {
-  links: [
-    { link: '#', title: 'Link 1' },
-    { link: '#', title: 'Link 2' },
-  ],
+  links: ['Link 1', 'Link 2'],
 };
 Standart.play = async ({ canvasElement, args }) => {
   const canvas = within(canvasElement);

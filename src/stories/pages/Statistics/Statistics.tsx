@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
 `;
 
 function Statistics() {
-  const links = [{ link: '/', title: '← Back to Main' }];
+  const links = ['← Back to Main'];
   const [activeTab, setActiveTab] = useState('');
   const location = useLocation();
 

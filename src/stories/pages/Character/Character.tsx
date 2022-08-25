@@ -18,12 +18,7 @@ function Character({ character }: { character: ICharacterApi }) {
   //   const { name, status, species, gender, image, id } =
   //     characters.find((item) => item.id === Number(characterId)) || character;
 
-  const links = [
-    { link: '/', title: 'Main' },
-    { link: '/statistics', title: 'Statistics' },
-    { link: '/statistics/episodes', title: 'Episodes' },
-    { link: '/statistics/locations', title: 'Locations' },
-  ];
+  const links = ['Main', 'Statistics', 'Episodes', 'Locations'];
 
   //   const dispatch = useDispatch();
   //   useEffect(() => {

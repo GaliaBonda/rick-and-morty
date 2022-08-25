@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ITableData from '../../../common/interfaces/ITableData';
-import TableHead from '../TableHead/TableHead';
-import TableRow from '../TableRow/TableRow';
+import TableHead from '../PageTableHead/PageTableHead';
+import TableRow from '../PageTableRow/PageTableRow';
 
 interface Props {
   header: string[];
-  rows: (string | number)[][];
+  rows: ITableData[];
   changeSort: (desc: boolean, column: number) => void;
 }
 
@@ -22,17 +22,17 @@ const StyledTableBody = styled.tbody`
   border-radius: 20px;
 `;
 
-function Table({ header, rows, changeSort }: Props) {
+function PageTable({ header, rows, changeSort }: Props) {
   return (
     <StyledTable>
       <TableHead header={header} changeSort={changeSort} />
       <StyledTableBody>
-        {rows.map((row, index) => {
-          return <TableRow row={row} key={index} />;
+        {rows.map((row) => {
+          return <TableRow row={row} key={row.id} />;
         })}
       </StyledTableBody>
     </StyledTable>
   );
 }
 
-export default Table;
+export default PageTable;

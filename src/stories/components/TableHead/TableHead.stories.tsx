@@ -12,7 +12,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: '50%' }}>
+      <div style={{ width: 'fit-content', backgroundColor: 'white' }}>
         <Story />
       </div>
     ),

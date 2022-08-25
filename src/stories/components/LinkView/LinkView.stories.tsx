@@ -2,12 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import LinkView from './LinkView';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {
-  fireEvent,
-  userEvent,
-  waitFor,
-  within,
-} from '@storybook/testing-library';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 export default {
@@ -43,6 +38,12 @@ Standart.play = async ({ canvasElement, args }) => {
   const link = canvas.getByTestId('test-link');
   await userEvent.click(link);
   await waitFor(() => expect(args.handleClick).toBeCalled());
+};
+
+export const Active = Template.bind({});
+Active.args = {
+  ...Standart.args,
+  activeTab: true,
 };
 
 export const WithImage = Template.bind({});
