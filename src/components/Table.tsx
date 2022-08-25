@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import ITableData from '../common/interfaces/ITableData';
+import TableHead from './TableHead';
 import TableRow from './TableRow';
 
 interface Props {
@@ -33,44 +34,10 @@ const StyledTableBody = styled.tbody`
   border-radius: 20px;
 `;
 
-interface StyleProps {
-  active?: string;
-}
-const StyledSpan = styled.span`
-  color: ${(props: StyleProps) => props.active || 'inherit'};
-`;
-
 function Table({ header, rows, changeSort }: Props) {
-  const [descSorted, setDescSorted] = useState(true);
-  const [activeSort, setActiveSort] = useState(1);
-  const handleClick = (index: number) => {
-    changeSort(descSorted, index);
-    setDescSorted((prevState) => !prevState);
-    setActiveSort(index);
-  };
   return (
     <StyledTable>
-      <StyledTableHead>
-        <StyledHeadRow>
-          {header.map((item, index) => {
-            return (
-              <StyledHeadCell key={index} onClick={() => handleClick(index)}>
-                {item}{' '}
-                <StyledSpan
-                  active={descSorted && activeSort === index ? 'grey' : ''}
-                >
-                  ▼
-                </StyledSpan>
-                <StyledSpan
-                  active={!descSorted && activeSort === index ? 'grey' : ''}
-                >
-                  ▲
-                </StyledSpan>
-              </StyledHeadCell>
-            );
-          })}
-        </StyledHeadRow>
-      </StyledTableHead>
+      <TableHead header={header} changeSort={changeSort} />
       <StyledTableBody>
         {rows.map((row) => {
           return <TableRow row={row} key={row.id} />;

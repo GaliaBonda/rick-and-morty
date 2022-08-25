@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ICharacterApi from '../../../common/interfaces/ICharacterApi';
+import CharacterInfo from './CharacterInfo';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -49,26 +50,12 @@ function CharacterView({
   species,
   status,
 }: ICharacterApi) {
-  const about = [
-    { title: 'Gender:', info: gender },
-    { title: 'Species:', info: species },
-    { title: 'Status:', info: status },
-  ];
-
   return (
     <FlexDiv>
       <StyledDiv>
         <StyledHeading>{name}</StyledHeading>
         <StyledImg src={image} alt=''></StyledImg>
-        <StyledInfo>
-          {about.map((item, index) => {
-            return (
-              <StyledParagraph key={index}>
-                <StyledSpan>{item.title}</StyledSpan> {item.info}
-              </StyledParagraph>
-            );
-          })}
-        </StyledInfo>
+        <CharacterInfo gender={gender} species={species} status={status} />
       </StyledDiv>
     </FlexDiv>
   );

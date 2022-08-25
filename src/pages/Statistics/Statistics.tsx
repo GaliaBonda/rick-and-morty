@@ -23,8 +23,10 @@ function Statistics() {
       setActiveTab('episodes');
     } else if (location.pathname.includes('locations')) {
       setActiveTab('locations');
+    } else {
+      setActiveTab('');
     }
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
