@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import LinkView from '../../components/LinkView';
 import Nav from '../../components/Nav';
@@ -16,8 +16,15 @@ function Statistics() {
   const links = [{ link: '/', title: '← Back to Main' }];
   // const [openTab, setOpenTab] = useState(false);
   const [activeTab, setActiveTab] = useState('');
+  const location = useLocation();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (location.pathname.includes('episodes')) {
+      setActiveTab('episodes');
+    } else if (location.pathname.includes('locations')) {
+      setActiveTab('locations');
+    }
+  }, []);
 
   return (
     <>
