@@ -19,7 +19,7 @@ const StyledLink = styled(Link)`
 
 interface Props {
   links: { link: string; title: string }[];
-  clickHandle: () => void;
+  clickHandle?: () => void;
 }
 
 function Nav({ links, clickHandle }: Props) {
