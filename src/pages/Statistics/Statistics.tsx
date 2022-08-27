@@ -30,7 +30,7 @@ function Statistics() {
   return (
     <>
       <Nav links={links} />
-      <StyledDiv>
+      <StyledDiv data-testid='test-statistics'>
         <LinkView
           link='episodes'
           title='Episodes'

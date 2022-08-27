@@ -11,6 +11,8 @@ import Statistics from './pages/Statistics/Statistics';
 import Location from './pages/Location/Location';
 import Character from './pages/Character/Character';
 import { createGlobalStyle } from 'styled-components/macro';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -51,19 +53,21 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <HistoryRouter history={history}>
-      <GlobalStyle />
-      <Routes>
-        <Route path='statistics' element={<Statistics />}>
-          <Route path='episodes' element={<Episodes />} />
-          <Route path='locations' element={<Location />} />
-        </Route>
-        <Route path='characters'>
-          <Route path=':characterId' element={<Character />} />
-        </Route>
-        <Route path='/' element={<Main />} />
-      </Routes>
-    </HistoryRouter>
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <GlobalStyle />
+        <Routes>
+          <Route path='statistics' element={<Statistics />}>
+            <Route path='episodes' element={<Episodes />} />
+            <Route path='locations' element={<Location />} />
+          </Route>
+          <Route path='characters'>
+            <Route path=':characterId' element={<Character />} />
+          </Route>
+          <Route path='/' element={<Main />} />
+        </Routes>
+      </HistoryRouter>
+    </Provider>
   );
 }
 

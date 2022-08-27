@@ -1,4 +1,4 @@
 const api = {
-  baseURL: process.env.REACT_APP_API_URL || '',
+  baseURL: 'https://rickandmortyapi.com/api' || '',
 };
 export default api;

@@ -39,7 +39,7 @@ function TableHead({ header, changeSort }: Props) {
       <StyledHeadRow>
         {header.map((item, index) => {
           return (
-            <StyledHeadCell key={index} onClick={() => handleClick(index)}>
+            <StyledHeadCell key={index} onClick={() => handleClick(index)} data-testid="test-sorter">
               {item}{' '}
               <StyledSpan
                 active={descSorted && activeSort === index ? 'grey' : ''}

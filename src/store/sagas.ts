@@ -25,17 +25,22 @@ export const sagaActions = {
   UPDATE_LOCATIONS_SAGA: 'UPDATE_LOCATIONS_SAGA',
 };
 
-function* updateCharacters() {
-  const data: IResponse<ICharacterApi> = yield call(() =>
-    api.get('/character')
-  );
-  yield put(getNextPage(data.info.next));
+export function* updateCharacters() {
+  try {
+    const data: IResponse<ICharacterApi> = yield call(() =>
+      api.get('/character')
+    );
+    yield put(getNextPage(data.info.next));
 
-  yield put(update(data.results));
+    yield put(update(data.results));
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 function* watchUpdateCharacters() {
-  yield takeEvery(sagaActions.UPDATE_CHARACTERS_SAGA, updateCharacters);
+  yield takeLatest(sagaActions.UPDATE_CHARACTERS_SAGA, updateCharacters);
 }
 
 function* getAllCharacters() {
