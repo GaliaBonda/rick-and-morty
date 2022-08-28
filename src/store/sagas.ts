@@ -71,7 +71,7 @@ function* getAllCharacters() {
 }
 
 function* watchGetAllCharacters() {
-  yield takeEvery(sagaActions.GET_ALL_CHARACTERS_SAGA, getAllCharacters);
+  yield takeLatest(sagaActions.GET_ALL_CHARACTERS_SAGA, getAllCharacters);
 }
 
 function* addCharacters(action: AnyAction) {

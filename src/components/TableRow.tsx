@@ -15,7 +15,7 @@ function TableRow({ row }: Props) {
   return (
     <StyledTableRow>
       {row.data.map((item, index) => {
-        return <StyledTableCell key={index}>{item}</StyledTableCell>;
+        return <StyledTableCell key={index} data-testid="test-table-cell">{item}</StyledTableCell>;
       })}
     </StyledTableRow>
   );

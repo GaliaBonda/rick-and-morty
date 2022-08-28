@@ -1,10 +1,10 @@
 import React from 'react';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import Main from './pages/Main/Main';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { Provider, useSelector } from 'react-redux';
+import { RootState, store } from './store/store';
 import {
   Router,
   unstable_HistoryRouter as HistoryRouter,
@@ -12,6 +12,8 @@ import {
 import { history } from './common/utils/history';
 import Character from './pages/Main/components/Character';
 import { createMemoryHistory } from 'history';
+import Episodes from './pages/Episodes/Episodes';
+import Table from './components/Table';
 
 afterEach(cleanup);
 
@@ -90,17 +92,7 @@ test('episodes', async () => {
   expect(episodesTable).not.toBeNull();
 
 });
-test('episodes table', async () => {
-  render(<App />);
-  history.push('episodes');
 
-  const changeSort = jest.fn();
-  const sorter = screen.getAllByTestId('test-sorter')[0];
-  userEvent.click(sorter);
-  expect(changeSort).toBeCalled();
-
-
-});
 test('locations', async () => {
   render(<App />);
   history.push('statistics');
@@ -108,4 +100,35 @@ test('locations', async () => {
   userEvent.click(locations);
   const locationsTable = screen.getByText('Number of characters');
   expect(locationsTable).not.toBeNull();
+
 });
+
+test('sorting callback in table', async () => {
+  const changeSort = jest.fn();
+  render(<Provider store={store}><HistoryRouter history={history}>
+    <Table
+      header={['Character name', 'Number of episodes']}
+      rows={[]}
+      changeSort={changeSort}
+    />
+  </HistoryRouter ></Provider >);
+  const sorter = screen.getAllByTestId('test-sorter')[0];
+  await userEvent.click(sorter);
+  await waitFor(() => {
+    expect(changeSort).toBeCalled();
+  });
+});
+test('sorting', async () => {
+  render(<App />);
+  history.push('statistics');
+  const locations = screen.getByText('Locations');
+  await userEvent.click(locations);
+  const sorter = screen.getAllByTestId('test-sorter')[0];
+  const tableCells = await screen.findAllByTestId('test-table-cell');
+  await userEvent.click(sorter);
+  await waitFor(() => {
+    expect(screen.getAllByTestId('test-table-cell')[0].innerText).not.toEqual(tableCells[0].innerText);
+  });
+});
+
+
