@@ -36,7 +36,6 @@ export function* updateCharacters() {
   } catch (error) {
     console.log(error);
   }
-
 }
 
 function* watchUpdateCharacters() {
@@ -44,34 +43,33 @@ function* watchUpdateCharacters() {
 }
 
 function* getAllCharacters() {
-  // const charactersIds: number[] = [];
-  // for (let i = 1; i < 827; i++) {
-  //   charactersIds.push(i);
-  // }
+  const charactersIds: number[] = [];
+  for (let i = 1; i < 827; i++) {
+    charactersIds.push(i);
+  }
 
-  // const data: ICharacterApi[] = yield call(
-  //   () => api.get('/character/' + charactersIds.toString())
+  const data: ICharacterApi[] = yield call(() =>
+    api.get('/character/' + charactersIds.toString())
+  );
+  yield put(getAll(data));
+
+  // const promises = [api.get('/character/')];
+  // for (let i = 2; i <= 42; i++) {
+  //   promises.push(api.get('/character/?page=' + i));
+  // }
+  // let allCharacters: ICharacterApi[] = [];
+  // const data: IResponse<ICharacterApi>[] = yield call(() =>
+  //   Promise.all(promises)
   // );
 
-  // yield put(update(data));
-
-  const promises = [api.get('/character/')];
-  for (let i = 2; i <= 42; i++) {
-    promises.push(api.get('/character/?page=' + i));
-  }
-  let allCharacters: ICharacterApi[] = [];
-  const data: IResponse<ICharacterApi>[] = yield call(() =>
-    Promise.all(promises)
-  );
-
-  data.forEach((item) => {
-    allCharacters = [...allCharacters, ...item.results];
-  });
-  yield put(getAll(allCharacters));
+  // data.forEach((item) => {
+  //   allCharacters = [...allCharacters, ...item.results];
+  // });
+  // yield put(getAll(allCharacters));
 }
 
 function* watchGetAllCharacters() {
-  yield takeLatest(sagaActions.GET_ALL_CHARACTERS_SAGA, getAllCharacters);
+  yield takeEvery(sagaActions.GET_ALL_CHARACTERS_SAGA, getAllCharacters);
 }
 
 function* addCharacters(action: AnyAction) {
@@ -111,7 +109,7 @@ function* getAllLocations() {
 }
 
 function* watchUpdateLocations() {
-  yield takeEvery(sagaActions.UPDATE_LOCATIONS_SAGA, getAllLocations);
+  yield takeLatest(sagaActions.UPDATE_LOCATIONS_SAGA, getAllLocations);
 }
 
 export default function* rootSaga() {

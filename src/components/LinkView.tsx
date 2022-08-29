@@ -53,7 +53,12 @@ function LinkView({
   activeTab,
 }: Props) {
   return (
-    <StyledLink to={link} onClick={handleClick} $active={activeTab}>
+    <StyledLink
+      to={link}
+      onClick={handleClick}
+      $active={activeTab}
+      data-testid='test-link'
+    >
       <StyledHeading>{title}</StyledHeading>
       {!hiddenImage && <StyledImage src={image} />}
     </StyledLink>

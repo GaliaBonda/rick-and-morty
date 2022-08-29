@@ -4,11 +4,12 @@ import isElementInViewport from '../../common/utils/isElementInViewport';
 import Loader from '../../components/Loader';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
-import { history } from '../../common/utils/history';
+// import { history } from '../../common/utils/history';
 import Character from './components/Character';
 import styled from 'styled-components/macro';
 import Nav from '../../components/Nav';
 import ICharacterApi from '../../common/interfaces/ICharacterApi';
+import { useNavigate } from 'react-router';
 
 const MainDiv = styled.div`
   display: flex;
@@ -43,9 +44,12 @@ function Main() {
   const [bottomHit, setBottomHit] = useState(false);
   const [loaderShown, setLoaderShown] = useState(false);
 
-  const characters: ICharacterApi[] = useSelector((state: RootState) => state.characters);
+  const characters: ICharacterApi[] = useSelector(
+    (state: RootState) => state.characters
+  );
   const nextPage = useSelector((state: RootState) => state.nextPage);
 
+  const history = useNavigate();
   useEffect(() => {
     if (!characters.length)
       dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });
@@ -75,7 +79,7 @@ function Main() {
   }, [characters.length]);
 
   const goToCharacter = (id: number) => {
-    history.push('characters/' + id);
+    history('characters/' + id);
   };
 
   const links = [
@@ -101,7 +105,9 @@ function Main() {
           );
         })}
       </StyledList>
-      <StyledDiv ref={bottomRef} data-testid='test-scroll-load'>{loaderShown && <Loader />}</StyledDiv>
+      <StyledDiv ref={bottomRef} data-testid='test-scroll-load'>
+        {loaderShown && <Loader />}
+      </StyledDiv>
     </MainDiv>
   );
 }

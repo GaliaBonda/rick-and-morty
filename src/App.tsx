@@ -3,6 +3,7 @@ import {
   unstable_HistoryRouter as HistoryRouter,
   Route,
   Routes,
+  BrowserRouter,
 } from 'react-router-dom';
 import { history } from './common/utils/history';
 import Episodes from './pages/Episodes/Episodes';
@@ -54,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <Provider store={store}>
-      <HistoryRouter history={history}>
+      <BrowserRouter>
         <GlobalStyle />
         <Routes>
           <Route path='statistics' element={<Statistics />}>
@@ -66,7 +67,7 @@ function App() {
           </Route>
           <Route path='/' element={<Main />} />
         </Routes>
-      </HistoryRouter>
+      </BrowserRouter>
     </Provider>
   );
 }

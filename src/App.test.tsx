@@ -1,32 +1,34 @@
 import React from 'react';
-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+// import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import Main from './pages/Main/Main';
-import { Provider, useSelector } from 'react-redux';
-import { RootState, store } from './store/store';
-import {
-  Router,
-  unstable_HistoryRouter as HistoryRouter,
-} from 'react-router-dom';
-import { history } from './common/utils/history';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { BrowserRouter } from 'react-router-dom';
 import Character from './pages/Main/components/Character';
-import { createMemoryHistory } from 'history';
-import Episodes from './pages/Episodes/Episodes';
 import Table from './components/Table';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-afterEach(cleanup);
-
+/**
+ * @jest-environment node
+ */
 
 test('check main page first loaded ui', async () => {
-  render(<Provider store={store}><HistoryRouter history={history}><Main /></HistoryRouter></Provider>);
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    </Provider>
+  );
 
   const links = screen.getAllByRole('link');
   expect(links.length).toBeGreaterThan(1);
   const characters = await screen.findAllByTestId('test-character');
   await waitFor(() => {
     expect(characters.length).toEqual(20);
-  })
+  });
 });
 
 // test('load more characters on scroll', async () => {
@@ -42,12 +44,19 @@ test('check main page first loaded ui', async () => {
 // });
 test('go to character page callback on click', async () => {
   const goToCharacter = jest.fn();
-  render(<Provider store={store}><HistoryRouter history={history}><Character key={0}
-    name=""
-    id={0}
-    image=""
-    clickHandler={goToCharacter}
-  /></HistoryRouter></Provider>);
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Character
+          key={0}
+          name=''
+          id={0}
+          image=''
+          clickHandler={goToCharacter}
+        />
+      </BrowserRouter>
+    </Provider>
+  );
   const character = await screen.findByTestId('test-character');
   await fireEvent.click(character);
 
@@ -59,14 +68,18 @@ test('go to character page callback on click', async () => {
 
 test('go to character page on click', async () => {
   render(<App />);
-  const characters = await screen.findAllByTestId('test-character');
+  const characters = screen.getAllByTestId('test-character');
   userEvent.click(characters[0]);
   expect(await screen.findByText('Gender:')).not.toBeNull();
+  const mainLink = screen.getByRole('link', { name: 'Main' });
+  userEvent.click(mainLink);
 });
+
 test('go back on main', async () => {
   render(<App />);
-  history.push('characters/1');
-  const mainLink = screen.getByText('Main');
+  const character = await screen.findAllByTestId('test-character');
+  userEvent.click(character[0]);
+  const mainLink = screen.getByRole('link', { name: 'Main' });
   userEvent.click(mainLink);
   const characters = await screen.findAllByTestId('test-character');
 
@@ -85,33 +98,38 @@ test('links', async () => {
 });
 test('episodes', async () => {
   render(<App />);
-  history.push('statistics');
+  // const statistics = screen.getByRole('link', { name: 'Statistics' });
+  // userEvent.click(statistics);
+  // history('statistics');
   const episodes = screen.getByText('Episodes');
   userEvent.click(episodes);
   const episodesTable = screen.getByText('Character name');
   expect(episodesTable).not.toBeNull();
-
 });
 
 test('locations', async () => {
   render(<App />);
-  history.push('statistics');
+  // const statistics = screen.getByRole('link', { name: 'Statistics' });
+  // userEvent.click(statistics);
   const locations = screen.getByText('Locations');
   userEvent.click(locations);
   const locationsTable = screen.getByText('Number of characters');
   expect(locationsTable).not.toBeNull();
-
 });
 
 test('sorting callback in table', async () => {
   const changeSort = jest.fn();
-  render(<Provider store={store}><HistoryRouter history={history}>
-    <Table
-      header={['Character name', 'Number of episodes']}
-      rows={[]}
-      changeSort={changeSort}
-    />
-  </HistoryRouter ></Provider >);
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Table
+          header={['Character name', 'Number of episodes']}
+          rows={[]}
+          changeSort={changeSort}
+        />
+      </BrowserRouter>
+    </Provider>
+  );
   const sorter = screen.getAllByTestId('test-sorter')[0];
   await userEvent.click(sorter);
   await waitFor(() => {
@@ -120,15 +138,16 @@ test('sorting callback in table', async () => {
 });
 test('sorting', async () => {
   render(<App />);
-  history.push('statistics');
-  const locations = screen.getByText('Locations');
-  await userEvent.click(locations);
-  const sorter = screen.getAllByTestId('test-sorter')[0];
+  // const statistics = screen.getByRole('link', { name: 'Statistics' });
+  // userEvent.click(statistics);
+  // const locations = screen.getAllByTestId('test-link')[1];
+  // await userEvent.click(locations);
+  const sorter = await screen.findAllByTestId('test-sorter');
   const tableCells = await screen.findAllByTestId('test-table-cell');
-  await userEvent.click(sorter);
+  await userEvent.click(sorter[0]);
   await waitFor(() => {
-    expect(screen.getAllByTestId('test-table-cell')[0].innerText).not.toEqual(tableCells[0].innerText);
+    expect(screen.getAllByTestId('test-table-cell')[0].innerText).not.toEqual(
+      tableCells[0].innerText
+    );
   });
 });
-
-
