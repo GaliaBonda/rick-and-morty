@@ -10,10 +10,6 @@ import Character from './pages/Main/components/Character';
 import Table from './components/Table';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-/**
- * @jest-environment node
- */
-
 test('check main page first loaded ui', async () => {
   render(
     <Provider store={store}>
@@ -146,8 +142,8 @@ test('sorting', async () => {
   const tableCells = await screen.findAllByTestId('test-table-cell');
   await userEvent.click(sorter[0]);
   await waitFor(() => {
-    expect(screen.getAllByTestId('test-table-cell')[0].innerText).not.toEqual(
-      tableCells[0].innerText
+    expect(screen.getAllByTestId('test-table-cell')[0].textContent).not.toEqual(
+      tableCells[0].textContent
     );
   });
 });
