@@ -21,6 +21,10 @@ export default {
       action: 'upload new characters',
       table: { disable: true },
     },
+    testScrollingCallback: {
+      action: 'scroll testing callback',
+      table: { disable: true },
+    },
     goToCharacter: {
       action: 'go to character',
       table: { disable: true },
@@ -55,9 +59,16 @@ Standart.play = async ({ canvasElement, args }) => {
   const listEl = canvas.getAllByTestId('test-list-element');
   await userEvent.click(listEl[0]);
   await waitFor(() => expect(args.goToCharacter).toBeCalled());
-  await fireEvent.scroll(window, { target: { scrollY: 10000000 } });
+  // const scrollTestElement = canvas.getByTestId('scroll-test-element');
+  // scrollTestElement.scrollIntoView();
+  const mainDiv = canvas.getByTestId('test-main');
+  fireEvent.scroll(window, { target: { scrollTop: window.innerHeight } });
+  console.log(window);
+
+  expect(args.testScrollingCallback).toBeCalled();
+  // expect(args.uploadNewCharacters).toBeCalled();
+  // console.log(mainDiv.getBoundingClientRect().bottom);
+
   // await waitFor(() => expect(args.uploadNewCharacters).toBeCalled());
-  await waitFor(() =>
-    expect(canvas.findByTestId('loader')).toBeInTheDocument()
-  );
+  // await waitFor(() => expect(canvas.getByTestId('loader')).toBeInTheDocument());
 };

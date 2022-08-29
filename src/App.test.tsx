@@ -31,11 +31,13 @@ test('check main page first loaded ui', async () => {
 //   render(<App />);
 
 //   // const yPosition = screen.getByTestId('test-scroll-load').offsetHeight;
-//   await fireEvent.scroll(window, { target: { scrollY: window.innerHeight } });
-//   // const characters = await screen.findAllByTestId('test-character');
+//   fireEvent.scroll(window, {
+//     target: { scrollTop: window.innerHeight },
+//   });
+//   const characters = await screen.findAllByTestId('test-character');
 //   await waitFor(() => {
-//     // expect(characters.length).toBeGreaterThan(20);
-//     expect(screen.getAllByTestId('loader')).not.toBeNull();
+//     expect(characters.length).toBeGreaterThan(20);
+//     //expect(screen.getAllByTestId('loader')).not.toBeNull();
 //   });
 // });
 test('go to character page callback on click', async () => {
@@ -54,10 +56,9 @@ test('go to character page callback on click', async () => {
     </Provider>
   );
   const character = await screen.findByTestId('test-character');
-  await fireEvent.click(character);
+  fireEvent.click(character);
 
   await waitFor(() => {
-    // expect(characters.length).toBeGreaterThan(20);
     expect(goToCharacter).toHaveBeenCalled();
   });
 });
@@ -94,9 +95,6 @@ test('links', async () => {
 });
 test('episodes', async () => {
   render(<App />);
-  // const statistics = screen.getByRole('link', { name: 'Statistics' });
-  // userEvent.click(statistics);
-  // history('statistics');
   const episodes = screen.getByText('Episodes');
   userEvent.click(episodes);
   const episodesTable = screen.getByText('Character name');
@@ -105,8 +103,6 @@ test('episodes', async () => {
 
 test('locations', async () => {
   render(<App />);
-  // const statistics = screen.getByRole('link', { name: 'Statistics' });
-  // userEvent.click(statistics);
   const locations = screen.getByText('Locations');
   userEvent.click(locations);
   const locationsTable = screen.getByText('Number of characters');
@@ -127,23 +123,44 @@ test('sorting callback in table', async () => {
     </Provider>
   );
   const sorter = screen.getAllByTestId('test-sorter')[0];
-  await userEvent.click(sorter);
+  userEvent.click(sorter);
   await waitFor(() => {
     expect(changeSort).toBeCalled();
   });
 });
 test('sorting', async () => {
   render(<App />);
-  // const statistics = screen.getByRole('link', { name: 'Statistics' });
-  // userEvent.click(statistics);
-  // const locations = screen.getAllByTestId('test-link')[1];
-  // await userEvent.click(locations);
-  const sorter = await screen.findAllByTestId('test-sorter');
-  const tableCells = await screen.findAllByTestId('test-table-cell');
-  await userEvent.click(sorter[0]);
+  let sorter = await screen.findAllByTestId('test-sorter');
+  let tableCells = await screen.findAllByTestId('test-table-cell');
+  userEvent.click(sorter[0]);
   await waitFor(() => {
     expect(screen.getAllByTestId('test-table-cell')[0].textContent).not.toEqual(
       tableCells[0].textContent
+    );
+  });
+  tableCells = screen.getAllByTestId('test-table-cell');
+  userEvent.click(sorter[1]);
+  await waitFor(() => {
+    expect(screen.getAllByTestId('test-table-cell')[1].textContent).not.toEqual(
+      tableCells[1].textContent
+    );
+  });
+
+  const episodes = screen.getAllByTestId('test-link')[0];
+  userEvent.click(episodes);
+  tableCells = await screen.findAllByTestId('test-table-cell');
+  sorter = await screen.findAllByTestId('test-sorter');
+  userEvent.click(sorter[0]);
+  await waitFor(() => {
+    expect(screen.getAllByTestId('test-table-cell')[0].textContent).not.toEqual(
+      tableCells[0].textContent
+    );
+  });
+  tableCells = screen.getAllByTestId('test-table-cell');
+  userEvent.click(sorter[1]);
+  await waitFor(() => {
+    expect(screen.getAllByTestId('test-table-cell')[1].textContent).not.toEqual(
+      tableCells[1].textContent
     );
   });
 });

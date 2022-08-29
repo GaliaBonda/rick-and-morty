@@ -41,15 +41,17 @@ function Main({
   characters,
   uploadNewCharacters,
   goToCharacter,
+  testScrollingCallback,
 }: { characters: ICharacter[] } & { uploadNewCharacters: () => void } & {
   goToCharacter: () => void;
-}) {
+} & { testScrollingCallback: () => void }) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [bottomHit, setBottomHit] = useState(false);
   const [loaderShown, setLoaderShown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      testScrollingCallback();
       if (isElementInViewport(bottomRef.current) && !bottomHit) {
         setBottomHit(true);
         setLoaderShown(true);
@@ -59,6 +61,7 @@ function Main({
       }
     };
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -71,7 +74,7 @@ function Main({
   const links = ['Statistics', 'Episodes', 'Locations'];
 
   return (
-    <MainDiv>
+    <MainDiv data-testid='test-main'>
       <Nav links={links} />
       <StyledHeading>Rick and Morty characters</StyledHeading>
       <StyledList>
