@@ -20,12 +20,6 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   flex: 0 1 50%;
 `;
-const StyledInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 2em;
-`;
 const StyledHeading = styled.h1`
   flex: 1 0 100%;
   text-align: center;
