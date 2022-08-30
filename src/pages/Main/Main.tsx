@@ -4,7 +4,6 @@ import isElementInViewport from '../../common/utils/isElementInViewport';
 import Loader from '../../components/Loader';
 import { sagaActions } from '../../store/sagas';
 import { RootState } from '../../store/store';
-// import { history } from '../../common/utils/history';
 import Character from './components/Character';
 import styled from 'styled-components/macro';
 import Nav from '../../components/Nav';

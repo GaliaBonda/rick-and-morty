@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import ITableData from '../../../common/interfaces/ITableData';
 
 interface Props {
   row: (string | number)[];

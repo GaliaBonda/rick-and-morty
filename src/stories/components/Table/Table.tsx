@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import ITableData from '../../../common/interfaces/ITableData';
 import TableHead from '../TableHead/TableHead';
 import TableRow from '../TableRow/TableRow';
 

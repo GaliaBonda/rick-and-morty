@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/store';
 import ILocation from '../../../common/interfaces/ILocation';
 import PageTable from '../../components/PageTable/PageTable';
 
 function Location({ locations }: { locations: ILocation[] }) {
-  //   const locations = useSelector((state: RootState) => state.locations);
   const [sortedRows, setSortedRows] = useState([{ id: 0, data: ['', 0] }]);
-
-  //   const dispatch = useDispatch();
-  //   useEffect(() => {
-  //     dispatch({ type: 'UPDATE_LOCATIONS_SAGA' });
-  //   }, []);
 
   useEffect(() => {
     const locationsRows = locations

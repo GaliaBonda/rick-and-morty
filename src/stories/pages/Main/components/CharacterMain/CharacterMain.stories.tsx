@@ -1,14 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CharacterMain from './CharacterMain';
-import { BrowserRouter as Router } from 'react-router-dom';
-import {
-  fireEvent,
-  userEvent,
-  waitFor,
-  within,
-} from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
 
 export default {
   title: 'CharacterMain',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Main from './Main';
-import { screen, userEvent, waitFor, within } from '@storybook/testing-library';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { fireEvent } from '@testing-library/react';

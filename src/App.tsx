@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  unstable_HistoryRouter as HistoryRouter,
-  Route,
-  Routes,
-  BrowserRouter,
-} from 'react-router-dom';
-import { history } from './common/utils/history';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Episodes from './pages/Episodes/Episodes';
 import Main from './pages/Main/Main';
 import Statistics from './pages/Statistics/Statistics';

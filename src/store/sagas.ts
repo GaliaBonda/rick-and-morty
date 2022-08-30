@@ -1,12 +1,5 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import {
-  put,
-  takeEvery,
-  call,
-  all,
-  takeLatest,
-  delay,
-} from 'redux-saga/effects';
+import { put, call, all, takeLatest, delay } from 'redux-saga/effects';
 import api from '../api/api';
 import ICharacterApi from '../common/interfaces/ICharacterApi';
 import IResponse from '../common/interfaces/IResponse';
