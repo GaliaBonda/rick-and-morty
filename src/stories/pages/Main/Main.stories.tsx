@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { DOMElement } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Main from './Main';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
@@ -57,12 +57,15 @@ Standart.args = {
 Standart.play = async ({ canvasElement, args }) => {
   const canvas = within(canvasElement);
   const listEl = canvas.getAllByTestId('test-list-element');
-  await userEvent.click(listEl[0]);
+  userEvent.click(listEl[0]);
   await waitFor(() => expect(args.goToCharacter).toBeCalled());
   // const scrollTestElement = canvas.getByTestId('scroll-test-element');
   // scrollTestElement.scrollIntoView();
+
   const mainDiv = canvas.getByTestId('test-main');
-  fireEvent.scroll(window, { target: { scrollTop: window.innerHeight } });
+  fireEvent.scroll(window, {
+    target: { scrollTop: window.innerHeight },
+  });
   console.log(window);
 
   expect(args.testScrollingCallback).toBeCalled();

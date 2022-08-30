@@ -26,19 +26,28 @@ test('check main page first loaded ui', async () => {
   });
 });
 
-// test('load more characters on scroll', async () => {
-//   render(<App />);
+test('load more characters on scroll', async () => {
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    </Provider>
+  );
 
-//   // const yPosition = screen.getByTestId('test-scroll-load').offsetHeight;
-//   fireEvent.scroll(window, {
-//     target: { scrollTop: window.innerHeight },
-//   });
-//   const characters = await screen.findAllByTestId('test-character');
-//   await waitFor(() => {
-//     expect(characters.length).toBeGreaterThan(20);
-//     //expect(screen.getAllByTestId('loader')).not.toBeNull();
-//   });
-// });
+  // const yPosition = screen.getByTestId('test-scroll-load').offsetHeight;
+  fireEvent.scroll(window, {
+    target: { clientY: window.innerHeight },
+  });
+
+  // expect(loader).not.toBeNull();
+  await waitFor(async () => {
+    const loader = screen.getByTestId('loader');
+    // const characters = screen.getAllByTestId('test-character');
+    // expect(characters.length).toBeGreaterThan(20);
+    expect(loader).not.toBeNull();
+  });
+});
 test('go to character page callback on click', async () => {
   const goToCharacter = jest.fn();
   render(
