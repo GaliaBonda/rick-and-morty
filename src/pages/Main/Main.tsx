@@ -49,6 +49,7 @@ function Main() {
   const nextPage = useSelector((state: RootState) => state.nextPage);
 
   const history = useNavigate();
+
   useEffect(() => {
     if (!characters.length)
       dispatch({ type: sagaActions.UPDATE_CHARACTERS_SAGA });

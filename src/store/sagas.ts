@@ -36,36 +36,36 @@ function* watchUpdateCharacters() {
 }
 
 function* getAllCharacters() {
-  const charactersIds: number[] = [];
-  for (let i = 1; i < 827; i++) {
-    charactersIds.push(i);
-  }
-  try {
-    const data: ICharacterApi[] = yield call(() =>
-      api.get('/character/' + charactersIds.toString())
-    );
-    yield put(getAll(data));
-  } catch (error) {
-    console.log(error);
-  }
-
-  // const promises = [api.get('/character')];
-  // for (let i = 2; i <= 42; i++) {
-  //   promises.push(api.get('/character/?page=' + i));
+  // const charactersIds: number[] = [];
+  // for (let i = 1; i < 827; i++) {
+  //   charactersIds.push(i);
   // }
   // try {
-  //   let allCharacters: ICharacterApi[] = [];
-  //   const data: IResponse<ICharacterApi>[] = yield call(() =>
-  //     Promise.all(promises)
+  //   const data: ICharacterApi[] = yield call(() =>
+  //     api.get('/character/' + charactersIds.toString())
   //   );
-
-  //   data.forEach((item) => {
-  //     allCharacters = [...allCharacters, ...item.results];
-  //   });
-  //   yield put(getAll(allCharacters));
+  //   yield put(getAll(data));
   // } catch (error) {
   //   console.log(error);
   // }
+
+  const promises = [api.get('/character')];
+  for (let i = 2; i <= 42; i++) {
+    promises.push(api.get('/character/?page=' + i));
+  }
+  try {
+    let allCharacters: ICharacterApi[] = [];
+    const data: IResponse<ICharacterApi>[] = yield call(() =>
+      Promise.all(promises).then((result) => result)
+    );
+
+    data.forEach((item) => {
+      allCharacters = [...allCharacters, ...item.results];
+    });
+    yield put(getAll(allCharacters));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function* watchGetAllCharacters() {
