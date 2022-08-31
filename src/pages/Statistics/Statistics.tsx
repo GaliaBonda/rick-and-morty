@@ -34,7 +34,7 @@ function Statistics() {
         <LinkView
           link='episodes'
           title='Episodes'
-          image='/assets/rm-episodes.webp'
+          image='/rm-episodes.webp'
           hiddenImage={activeTab.length > 0}
           handleClick={() =>
             setActiveTab((prevState) =>
@@ -46,7 +46,7 @@ function Statistics() {
         <LinkView
           link='locations'
           title='Locations'
-          image='/assets/rm-locations.webp'
+          image='/rm-locations.webp'
           hiddenImage={activeTab.length > 0}
           handleClick={() =>
             setActiveTab((prevState) =>
